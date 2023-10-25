@@ -1,0 +1,12 @@
+# To enable not commiting the .gitignore file uncomment the line below
+# .gitignore
+
+# What to ignore
+images/*
+annotations/*
+*/__pycache__/*
+
+
+# Files on ignored folders to include on the commit
+!images/IMAGES.md
+!annotations/ANNOTATIONS.md
