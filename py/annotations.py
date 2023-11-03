@@ -66,35 +66,40 @@ class Annotation:
             annt["area"] = int(annt["bbox"][2]*annt["bbox"][3])
             
     def ifTranslated(self, tranlation=[0,0]):
+        toRemove = []
         for anntValues in self.annts:
             anntValues["bbox"][0] += int(tranlation[0])
             anntValues["bbox"][1] += int(tranlation[1])
             
             if (anntValues["bbox"][0]+anntValues["bbox"][2] > self.width) or anntValues["bbox"][0] < 0:
-                self.annts.remove(anntValues)
+                toRemove.append(anntValues)
             if (anntValues["bbox"][1]+anntValues["bbox"][3] > self.height) or anntValues["bbox"][1] < 0:
-                if anntValues in self.annts:
-                    self.annts.remove(anntValues)
+                if anntValues not in toRemove:
+                    toRemove.append(anntValues)
+        
+        self.annts = [i for i in self.annts if i not in toRemove]
 
     def ifRotated(self, rotation=0):
+        halfX=int((self.width-1)/2)
+        halfY=int((self.height-1)/2)
+        toRemove = []
         for anntValues in self.annts:
             # Change old box coordinate point to new
-            anntValues["bbox"][0] = int((anntValues["bbox"][0] - (self.width-1)/2) * math.cos(rotation) - (anntValues["bbox"][1] - (self.height-1)/2) * math.sin(rotation) + (self.width-1)/2)
-            anntValues["bbox"][1] = int((anntValues["bbox"][0] - (self.width-1)/2) * math.sin(rotation) - (anntValues["bbox"][1] - (self.height-1)/2) * math.cos(rotation) + (self.height-1)/2)
-            
+            anntValues["bbox"][0] = int(anntValues["bbox"][0]*math.cos(math.radians(rotation)) - anntValues["bbox"][1]*math.sin(math.radians(rotation)) - halfX)
+            anntValues["bbox"][1] = int(anntValues["bbox"][0]*math.sin(math.radians(rotation)) + anntValues["bbox"][1]*math.cos(math.radians(rotation)) - halfY)
+                        
             # Move new point to parallel box
-            anntValues["bbox"][1] -= int(anntValues["bbox"][2]*math.sin(rotation))
+            anntValues["bbox"][1] -= int(anntValues["bbox"][2]*math.sin(math.radians(rotation)))
             
-            # # Change 
-            anntValues["bbox"][2] = int(anntValues["bbox"][2]*math.cos(rotation)+anntValues["bbox"][3]*math.sin(rotation))
-            anntValues["bbox"][3] = int(anntValues["bbox"][3]*math.cos(rotation)+anntValues["bbox"][2]*math.sin(rotation))
+            # Change box size to accomodate new unrotated rectangle
+            # anntValues["bbox"][2] = int()
+            # anntValues["bbox"][3] = int()
                         
             if (anntValues["bbox"][0]+anntValues["bbox"][2] > self.width) or anntValues["bbox"][0] < 0:
-                self.annts.remove(anntValues)
+                toRemove.append(anntValues)
             if (anntValues["bbox"][1]+anntValues["bbox"][3] > self.height) or anntValues["bbox"][1] < 0:
-                self.annts.remove(anntValues)
-            
-            anntValues["area"] = int(anntValues["bbox"][2]*anntValues["bbox"][3])
+                if anntValues not in toRemove:
+                    toRemove.append(anntValues)
 
 def createJson(categories=[]):
     annotations = { "categories": categories,
