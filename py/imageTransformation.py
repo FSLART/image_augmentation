@@ -73,16 +73,27 @@ def perspectiveShift(image, perspectivePoints=[[0,0],[0,0],[0,0],[0,0]], finalIm
                                (image.shape[1], image.shape[0]))
 
 ##### IMAGE FILTERING #####
-def blurFilter(image, blurSize=1):
+def blurFilter(image, blurSize):
     if(type(image) is str):
         image = setImage(image)
         
     return cv2.filter2D(image, -1,
                         np.ones((blurSize, blurSize), np.float32)/(blurSize*blurSize))
     
-def erodeFilter(image, erodeSize=1):
+def erodeFilter(image, erodeSize):
     if(type(image) is str):
         image = setImage(image)
         
-    
     return cv2.erode(image, np.ones((erodeSize, erodeSize), np.uint8))
+
+def constrastFilter(image, constrast):
+    if(type(image) is str):
+        image = setImage(image)
+        
+    return cv2.convertScaleAbs(image, alpha=constrast)
+
+def brightnessFilter(image, brightness):
+    if(type(image) is str):
+        image = setImage(image)
+        
+    return cv2.convertScaleAbs(image, beta=brightness)
