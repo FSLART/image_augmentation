@@ -7,7 +7,12 @@ def setImage(imagePath=''):
     assert imgM is not None, "Error: File not found: Image file path could not be read"
     return imgM
 
-
+##### OUTPUT IMAGE TO FILE #####
+def setFile(image, imagePath):
+    if cv2.imwrite(imagePath, image):
+        return 0
+    return -1
+    
 ##### IMAGE GEOMETRIC TRANSFORMATIONS #####
 ## image scaling - resizing ##
 def scale(image, scale=[1,1]):

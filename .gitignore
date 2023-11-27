@@ -5,6 +5,7 @@
 images/*
 annotations/*
 */__pycache__/*
+.vscode
 
 
 # Files on ignored folders to include on the commit

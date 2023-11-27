@@ -1,7 +1,7 @@
-[ANNOTATIONS.MD](ANNOTATIONS.MD)
+# ANNOTATIONS DIRECTORY
 
-### SubDirectory to keep COCO formated files for further testing ###
+### Directory to keep COCO formated files to get the annotations of bounding boxes
 
-**_ This directory should be clean or ignored when making a commit _**
+**This directory needs to be cleaned or ignored when making a commit to a branch**
 
-All *annotation files* provided here, should have a reference to an *image file* in [IMAGES.md](../images/IMAGES.md)
+All ***annotation files*** provided here should have references to ***image files*** in [IMAGES.md](../images/IMAGES.md)

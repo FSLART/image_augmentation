@@ -1,7 +1,7 @@
-[IMAGES.md](IMAGES.md)
+# IMAGES DIRECTORY
 
-### SubDirectory to keep images for further testing ###
+### Directory to keep images that will be augmented
 
-**_ This directory should be clean or ignored when making a commit _**
+**This directory needs to be cleaned or ignored when making a commit to a branch**
 
-All *image files* provided here, should belong to an *annotation* file in [ANNOTATIONS.md](../annotations/ANNOTATIONS.MD)
+All ***image files*** provided here need to be mentioned on an ***annotation file*** in [ANNOTATIONS.md](../annotations/ANNOTATIONS.md)
